@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "FastAPI Debug",
+        "type": "python",
+        "request": "launch",
+        "module": "uvicorn",
+        "args": ["app.backend.main:app", "--reload"],
+        "jinja": true,
+        "justMyCode": true
+      },
+      {
+        "name": "Streamlit Debug",
+        "type": "python",
+        "request": "launch",
+        "program": "-m",
+        "args": ["streamlit", "run", "app/frontend/app.py"],
+        "env": {"PYTHONPATH": "${workspaceFolder}"}
+      }
+    ]
+  }

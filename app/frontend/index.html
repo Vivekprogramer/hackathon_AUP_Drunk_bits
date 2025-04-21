@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plastic Waste Detection</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Roboto", Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #eef2f3;
+        color: #333;
+      }
+
+      h2 {
+        text-align: center;
+        color: #1a5276;
+        margin-top: 20px;
+        font-size: 28px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+      }
+
+      p {
+        text-align: center;
+        font-size: 16px;
+        color: #5d6d7e;
+        margin: 10px 20px;
+        line-height: 1.6;
+      }
+
+      #map {
+        height: 500px;
+        width: 80%;
+        margin: 20px auto;
+        border: 3px solid #1a5276;
+        border-radius: 15px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        background-color: #d6eaf8;
+        position: relative;
+      }
+
+      .tabs {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+      }
+
+      .tab {
+        padding: 10px 20px;
+        margin: 0 5px;
+        background-color: #1a5276;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .tab:hover,
+      .tab.active {
+        background-color: #145a8a;
+      }
+
+      .sub-tabs {
+        display: none;
+        justify-content: center;
+        margin: 10px 0;
+      }
+
+      .sub-tab {
+        padding: 8px 15px;
+        margin: 0 5px;
+        background-color: #5d6d7e;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .sub-tab:hover,
+      .sub-tab.active {
+        background-color: #3e4e5e;
+      }
+
+      .blink-red {
+        animation: blink 1s infinite;
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          background-color: red;
+        }
+        50% {
+          background-color: transparent;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Plastic Waste Detection AI</h2>
+    <p>Detecting plastic waste in water bodies using AI technology.</p>
+
+    <div class="tabs">
+      <div class="tab" onclick="showSubTabs('overview', this)">Overview</div>
+      <div class="tab" onclick="showSubTabs('detection', this)">Detection</div>
+      <div class="tab" onclick="showSubTabs('analysis', this)">Analysis</div>
+    </div>
+
+    <div id="sub-tabs-overview" class="sub-tabs">
+      <div class="sub-tab" onclick="activateSubTab(this)">Introduction</div>
+      <div class="sub-tab" onclick="activateSubTab(this)">How It Works</div>
+    </div>
+
+    <div id="sub-tabs-detection" class="sub-tabs">
+      <div class="sub-tab" onclick="">Live Map</div>
+
+      <div class="sub-tab" onclick="activateSubTab(this)">Reports</div>
+    </div>
+
+    <div id="sub-tabs-analysis" class="sub-tabs">
+      <div class="sub-tab" onclick="activateSubTab(this)">Statistics</div>
+      <div class="sub-tab" onclick="activateSubTab(this)">Insights</div>
+    </div>
+
+    <div id="map">
+      <!-- Map will be rendered here -->
+    </div>
+
+    <script>
+      function showSubTabs(tabId, element) {
+        document.querySelectorAll(".sub-tabs").forEach((subTab) => {
+          subTab.style.display = "none";
+        });
+        document.getElementById("sub-tabs-" + tabId).style.display = "flex";
+
+        document.querySelectorAll(".tab").forEach((tab) => {
+          tab.classList.remove("active");
+        });
+        element.classList.add("active");
+      }
+
+      function activateSubTab(element) {
+        document.querySelectorAll(".sub-tab").forEach((subTab) => {
+          subTab.classList.remove("active");
+        });
+        if (element.textContent === "Live Map") {
+          window.location.href = "livemap.html";
+        }
+        element.classList.add("active");
+      }
+
+      // Simulate plastic waste detection
+      const map = document.getElementById("map");
+      const plasticWaste = document.createElement("div");
+      plasticWaste.style.width = "50px";
+      plasticWaste.style.height = "50px";
+      plasticWaste.style.borderRadius = "50%";
+      plasticWaste.style.position = "absolute";
+      plasticWaste.style.top = "50%";
+      plasticWaste.style.left = "50%";
+      plasticWaste.style.transform = "translate(-50%, -50%)";
+      plasticWaste.classList.add("blink-red");
+      map.appendChild(plasticWaste);
+    </script>
+  </body>
+</html>

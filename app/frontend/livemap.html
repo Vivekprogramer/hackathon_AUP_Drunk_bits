@@ -1,0 +1,81 @@
+<script>
+  // Initialize the map
+  const map = L.map("map").setView([25.0961, 85.3131], 7); // Centered on Bihar
+
+  // Add blinking markers for plastic waste detection in Bihar
+  waterBodyLocationsInBihar.forEach(([lat, lng]) =>
+    addBlinkingMarker(lat, lng)
+  );
+
+  // Add 1000 red blinking markers across the world
+  const redBlinkingIcon = L.divIcon({
+    className: "red-blinking",
+    iconSize: [12, 12],
+  });
+
+  const generateRandomCoordinates = () => [
+    (Math.random() * 180 - 90).toFixed(6), // Latitude between -90 and 90
+    (Math.random() * 360 - 180).toFixed(6), // Longitude between -180 and 180
+  ];
+
+  const worldRedLocations = Array.from(
+    { length: 1000 },
+    generateRandomCoordinates
+  );
+
+  worldRedLocations.forEach(([lat, lng]) =>
+    L.marker([parseFloat(lat), parseFloat(lng)], {
+      icon: redBlinkingIcon,
+    }).addTo(map)
+  );
+
+  // Add a legend to the map
+  const legend = L.control({ position: "bottomright" });
+  legend.onAdd = function () {
+    const div = L.DomUtil.create("div", "legend");
+    div.innerHTML += "<h4>Legend</h4>";
+    div.innerHTML += '<i class="blinking"></i> Plastic Waste in Bihar<br>';
+    div.innerHTML += '<i class="red-blinking"></i> Global Plastic Waste<br>';
+    return div;
+  };
+  legend.addTo(map);
+
+  // Add OpenStreetMap tiles
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+  }).addTo(map);
+
+  // Function to add a blinking marker
+  function addBlinkingMarker(lat, lng) {
+    const blinkingIcon = L.divIcon({
+      className: "blinking",
+      iconSize: [12, 12],
+    });
+    L.marker([lat, lng], { icon: blinkingIcon }).addTo(map);
+  }
+
+  // Example: Add plastic waste detection points in water bodies in Bihar
+  const waterBodyLocationsInBihar = [
+    [25.5941, 85.1376], // Example: Ganga River near Patna
+    [25.1557, 85.8918], // Example: Gandak River
+    [25.6208, 85.0485], // Example: Punpun River
+    [25.45, 85.85], // Example: Son River
+    [25.3, 85.1167], // Example: Falgu River
+    [25.8, 85.4], // Example: Kosi River
+    [25.5, 85.7], // Example: Bagmati River
+    [25.7, 85.2], // Additional point 1
+    [25.4, 85.5], // Additional point 2
+    [25.6, 85.3], // Additional point 3
+    [25.2, 85.6], // Additional point 4
+    [25.8, 85.6], // Additional point 5
+    [25.1, 85.4], // Additional point 6
+    [25.9, 85.5], // Additional point 7
+    [25.3, 85.8], // Additional point 8
+    [25.5, 85.9], // Additional point 9
+    [25.7, 85.1], // Additional point 10
+  ];
+
+  waterBodyLocationsInBihar.forEach(([lat, lng]) =>
+    addBlinkingMarker(lat, lng)
+  );
+</script>
